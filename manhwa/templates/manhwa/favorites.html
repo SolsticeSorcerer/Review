@@ -1,0 +1,38 @@
+{% extends 'manhwa/main.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="body">
+    {% block content %}
+    <a href="{% url 'create-favorite' %}" class="flex justify-center">
+        <button class="text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-violet-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500">
+          One More+
+        </button>
+      </a>
+    {% if fav %}
+    <div class="grid-container">
+            {% for fa in fav %}
+            <div>
+            <a href="{% url 'about' fa.Favorite.pk %}" alt="{{fa.Favorite.title|title}}"><img  class=" mx-auto w-20 hover:shadow-2xl hover:shadow-indigo-500 hover:w-40" src="{{ fa.Favorite.image.url }}"></a>
+            <p class="p3">{{ fa.Favorite.title }}</p>
+            <p class="p3">{{ fa.started}}</p>
+            <a class="block text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-violet-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500" href="{% url 'update-favorite' fa.pk %}">Update</a>
+            <form action="{% url 'delete-favorite' fa.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input class="text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-indigo-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500" type="submit" value="Delete">
+            </form>
+            </div>
+            {% endfor %}       
+    {% else %}
+        <p class="p1">Oops... no favorites found.</p>
+    {% endif %}
+    {% endblock %}
+        
+</body>
+</html>
+
+    

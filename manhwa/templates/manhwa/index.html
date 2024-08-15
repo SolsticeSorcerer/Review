@@ -1,0 +1,21 @@
+{% extends 'manhwa/main.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+{% block content %}
+<body>
+    <p class="p1">
+        Some of the Manhwas
+    </p>
+    <div class="grid-container">
+        {% for al in all %}
+        <div>
+        <a href="{% url 'about' al.pk %}" alt="{{al.title|title}}"><img  class=" mx-auto w-20 hover:shadow-2xl hover:shadow-indigo-500 hover:w-40" src="{{ al.image.url }}"></a>
+        <p class="p3">{{ al.title }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>

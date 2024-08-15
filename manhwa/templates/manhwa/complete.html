@@ -1,0 +1,20 @@
+{% extends 'manhwa/main.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+</head>
+<body>
+    {% block content %}
+    <p class="p1">
+        Manhwas which are Completed
+    </p>
+    <div class="grid-container">
+        {% for comp in completed%}
+        <div>
+        <a href="{% url 'about' comp.pk %}" alt="{{comp.title|title}}"><img class="mx-auto w-20 hover:shadow-2xl hover:shadow-indigo-500 hover:w-40" src="{{ comp.image.url }}"> </a>
+        <p class="p3">{{ comp.title }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>

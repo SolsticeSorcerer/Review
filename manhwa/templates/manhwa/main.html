@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div>
+        <ul class="ul">
+            <li class="li"><a class="a" href="{% url 'home' %}">HOME</a></li>
+            <li class="li"><a class="a" href="{% url 'complete' %}">COMPLETED</a></li>
+            <li class="li"><a class="a" href="{% url 'ongoing' %}">ONGOING</a></li>
+            <li class="li"><a class="a" href="{% url 'chat' %}">Comments</a></li>
+            <li class="li"><a class="a" href="{% url 'favorites' %}">Favorites</a></li>
+            {% if user.is_authenticated %}
+            {% if user.is_staff %}
+                <li class="li"><a class="a" href="{% url 'add' %}">ADD REVIEW</a></li>
+            {% endif %}
+            {% endif %}
+            <li class="li1">
+                <a class="a" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            </li> 
+            <!-- Form for logout -->
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <li class="li1"><span class="a1">{{user.username}}</sapn></li>            
+        </ul>
+    </div>
+    <div class="other">
+    {% block content %} {% endblock %}
+    </div>
+</body>
+</html>

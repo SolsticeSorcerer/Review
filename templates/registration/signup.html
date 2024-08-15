@@ -1,0 +1,37 @@
+{% load tailwind_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+    <title>Document</title>
+</head>
+<body class="bg-blue-200">
+    <div class="w-3/4 mx-auto mt-10">
+        <h1 class="p1">SignUp</h1>
+        <hr class="my-4">
+        {% if form.errors %}
+       <p>You have entered an incorrect username or password</p>
+{% endif %}
+{% if next %}
+     {% if not user.is_authenticated %}
+     <h1>Please login to view that page</h1>
+     {% else %}
+     <h1>Please login</h1>
+     {% endif %}
+{% endif %}
+     <form action="{% url 'signup' %}" method="POST">
+         {% csrf_token %}
+         {{ form|crispy }}
+         <input class="rounded px-5 py-2 mb-6 text-indigo-100 bg-indigo-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500" type="submit" value="Signup">
+         <input type="hidden" name="next" value={{next}}>
+     </form>
+     <p>
+        <a class="block border-t pt-4 underline text-blue-500" href="{% url 'login' %}">Have an account? login here</a>
+     </p>
+    </div>
+</body>
+</html>

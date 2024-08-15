@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="body">
+    <div>
+        <ul class="ul">
+            <li class="li1">
+                {% if not user.is_authenticated %}
+                <a class="a" href="{% url 'login' %}">Login</a>
+                {% else %}
+                <a class="a" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                {% endif %}
+            </li> 
+            <!-- Form for logout -->
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <li class="li1"><span class="a1">{{user.username}}</sapn></li>            
+        </ul>
+    </div>
+    <div class="flex justify-center items-center h-screen">
+        <h1 class="p1">Lets us dive in the world of manhwa</h1>
+        {% if  user.is_authenticated %}
+        <a class="mt-5 ml-3" href="{% url 'home' %}">
+            <button class="rounded px-5 py-2 mb-6 text-indigo-100 bg-indigo-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500">Dashboard</button>
+        </a>
+        {% else %}
+        <a class="mt-5 ml-3" href="{% url 'signup' %}">
+            <button class="rounded px-5 py-2 mb-6 text-indigo-100 bg-indigo-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500">SignUp</button>
+        </a>
+        {% endif %}
+    </div>
+</body>
+</html>

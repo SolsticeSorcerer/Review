@@ -1,0 +1,40 @@
+{% extends 'manhwa/main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %} 
+    
+    <ul class="ul1">
+        <li><img class="img2" src="{{ information.image.url }}"></li>
+        
+        <li><p class="p2">|| {{information.title}} ||</p></li> 
+        
+        <li><p class="p">|| chapters : {{information.chapter}} ||</p></li>
+        
+        <li><p class="p">|| Published in {{information.published}} ||</p></li>
+        
+        <li><p class="p">|| Overview : {{information.summary}} ||</p></li>
+        
+        <li><p class="p">|| Tags : {{information.tags}} ||</p></li>
+        
+        <li><p class="p">|| Points out of 10 : {{information.points}} ||</p></li>
+        
+        <li><p class="p">|| Status  : {% if information.is_complete == True %} Completed {% else %} Ongoing {% endif %} ||</p></li>
+
+        <li>
+            <a href="{% url 'create-comments' %}" class="flex justify-center">
+            <button class="text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-violet-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500">
+              Comment
+            </button>
+          </a>
+          </li>
+    </ul>
+    {% endblock %}
+</body>
+</html>

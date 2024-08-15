@@ -1,0 +1,53 @@
+{% extends 'manhwa/main.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {% if opinion %}
+    <table>
+        <thead>
+            <tr class="p2">
+                <th>Username</th>
+                <th>Manhwa Title</th>
+                <th>OneWord</th>
+                <th>Rating(5)</th>
+                <th>Description</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in opinion %}
+            <tr>
+                <td class="p">{{ comment.Name }}</td>
+                <td class="p">{{ comment.review.title }}</td>
+                <td class="p">{{ comment.oneword }}</td>
+                <td class="p">{{ comment.rating }}</td>
+                <td class="p">{{ comment.description }}</td>
+                {% if comment.Name == request.user %}
+                <td>
+                    <a class="text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-violet-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500" href="{% url 'update-comments' comment.pk  %}">Edit</a>
+                </td>
+                <td>
+                    <form class="text-sm rounded px-5 py-2 mb-1 text-indigo-100 bg-indigo-300 hover:cursor-pointer hover:shadow-lg hover:shadow-indigo-500" action="{% url 'delete-comments' comment.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+                {% endif %}    
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="p1">No comments at a time</p>
+    {% endif %}
+    {% endblock %}
+</body>
+</html>

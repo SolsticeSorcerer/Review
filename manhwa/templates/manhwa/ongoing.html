@@ -1,0 +1,20 @@
+{% extends 'manhwa/main.html' %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'manhwa/sty.css' %}">
+</head>
+{% block content %}
+<body>
+    <p class="p1">
+        Manhwas which are Ongoing
+    </p>
+    <div class="grid-container">
+        {% for on in goingon %}
+        <div>
+        <a href="{% url 'about' on.pk %}" alt="{{on.title|title}}"><img class=" mx-auto w-20 hover:shadow-2xl hover:shadow-indigo-500 hover:w-40" src="{{ on.image.url }}"> </a>
+        <p class="p3">{{ on.title }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</body>
